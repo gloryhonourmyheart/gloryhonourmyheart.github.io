@@ -1,17 +1,5 @@
 # 新手如何入门网络安全技术
 
-### 一、基础环境搭建
-1. **创建安全实验环境**（法律合规前提）
-```bash
-# 使用VirtualBox创建隔离环境
-$ virtualbox > 新建虚拟机 > 选择Kali Linux镜像
-内存分配：4GB | 存储：50GB | 网络模式：NAT
-```
-
-2. **博客文章模板**
-在`_posts`目录创建文件：  
-`2024-03-18-cybersecurity-basics.md`  
-Front Matter配置：
 ```yaml
 ---
 layout: post
@@ -21,7 +9,13 @@ categories: [网络安全]
 tags: [渗透测试,CTF]
 ---
 ```
-
+### 一、基础环境搭建
+**创建安全实验环境**（法律合规前提）
+```bash
+# 使用VirtualBox创建隔离环境
+$ virtualbox > 新建虚拟机 > 选择Kali Linux镜像
+内存分配：4GB | 存储：50GB | 网络模式：NAT
+```
 ---
 
 ### 二、技术内容写作规范
