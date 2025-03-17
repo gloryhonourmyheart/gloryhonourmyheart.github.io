@@ -97,7 +97,7 @@ curl -H "Authorization: Bearer $API_KEY" https://api.example.com
 
 ---
 
-### 五、发布前检查清单
+### 五、检查清单
 1. **法律审查**  
    - 删除所有真实IP/域名案例  
    - 添加水印声明：`本文内容禁止用于非法用途`
