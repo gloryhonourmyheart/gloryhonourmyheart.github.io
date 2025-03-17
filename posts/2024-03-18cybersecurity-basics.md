@@ -1,5 +1,3 @@
-# 新手如何入门网络安全技术
-
 yaml
 ---
 layout: post
