@@ -3,6 +3,7 @@
 A personal project showcasing frontend development skills through interactive web games, starting with the classic 2048 and expanding with more games!
 
 一个展示前端开发能力的个人项目，通过交互式网页游戏（从经典2048开始）展现现代Web开发技术栈与实践能力。
+创建一个游戏用户界面，让用户自在玩乐。
 
 
 
