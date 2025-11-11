@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清悦休闲 - 游戏中心预览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #e2f3e4, #c5e6c6, #a8d8b9, #8bcbae);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .title {
+            color: #2d6a4f;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .description {
+            color: #6b8c7d;
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        /* 导航栏样式 */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(139, 180, 172, 0.3);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2d6a4f;
+        }
+
+        .brand-icon {
+            font-size: 1.2em;
+        }
+
+        .brand-name {
+            background: linear-gradient(135deg, #2d6a4f, #5a8a6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .register-btn {
+            background: linear-gradient(135deg, #5a8a6e, #8bb4ac);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(91, 138, 110, 0.3);
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(91, 138, 110, 0.4);
+        }
+
+        .btn-icon {
+            font-size: 1.1em;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .game-card {
+            background: rgba(139, 180, 172, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .game-card:hover {
+            background: rgba(139, 180, 172, 0.2);
+            transform: translateY(-5px);
+            border-color: #8bb4ac;
+        }
+        
+        .game-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .game-name {
+            color: #2d6a4f;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        /* 注册弹窗样式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .register-modal {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2d6a4f;
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            color: #7a9c89;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #5a8a6e;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(139, 180, 172, 0.3);
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #5a8a6e;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #5a8a6e, #8bb4ac);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(91, 138, 110, 0.4);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #7a9c89;
+        }
+
+        .status {
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        
+        .instructions {
+            background: rgba(139, 180, 172, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .instructions h3 {
+            color: #2d6a4f;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            color: #6b8c7d;
+            line-height: 1.6;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 2em;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <span class="brand-icon">🎮</span>
+                    <span class="brand-name">清悦休闲</span>
+                </div>
+                <div class="nav-actions">
+                    <button class="register-btn" onclick="showRegisterModal()">
+                        <span class="btn-icon">📝</span>
+                        注册
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <h1 class="title">清悦休闲</h1>
+        <p class="description">选择你喜欢的游戏开始玩耍吧！</p>
+        
+        <div class="games-grid">
+            <div class="game-card" onclick="alert('2048游戏 - 开发中')">
+                <div class="game-icon">🧩</div>
+                <div class="game-name">2048</div>
+            </div>
+            <div class="game-card" onclick="alert('扫雷游戏 - 开发中')">
+                <div class="game-icon">💣</div>
+                <div class="game-name">扫雷</div>
+            </div>
+            <div class="game-card" onclick="alert('贪吃蛇游戏 - 开发中')">
+                <div class="game-icon">🐍</div>
+                <div class="game-name">贪吃蛇</div>
+            </div>
+            <div class="game-card" onclick="alert('俄罗斯方块 - 开发中')">
+                <div class="game-icon">🧊</div>
+                <div class="game-name">俄罗斯方块</div>
+            </div>
+        </div>
+        
+        <!-- 注册弹窗 -->
+        <div id="registerModal" class="modal-overlay">
+            <div class="register-modal">
+                <button class="close-btn" onclick="hideRegisterModal()">×</button>
+                <div class="modal-header">
+                    <h2 class="modal-title">注册清悦休闲</h2>
+                    <p class="modal-subtitle">创建您的游戏账户</p>
+                </div>
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="email" class="form-label">邮箱地址</label>
+                        <input type="email" id="email" class="form-input" placeholder="请输入邮箱" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">密码</label>
+                        <input type="password" id="password" class="form-input" placeholder="请输入密码" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">确认密码</label>
+                        <input type="password" id="confirmPassword" class="form-input" placeholder="请再次输入密码" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nickname" class="form-label">昵称</label>
+                        <input type="text" id="nickname" class="form-input" placeholder="请输入昵称" required>
+                    </div>
+                    <button type="submit" class="submit-btn">立即注册</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="status-info">
+            <h3>📋 项目状态</h3>
+            <p>这是一个静态预览版本，展示了游戏中心的界面设计。</p>
+            <p>要体验完整功能，请安装Node.js环境：</p>
+            <ol>
+                <li>下载并安装 <a href="https://nodejs.org/" target="_blank">Node.js LTS版本</a></li>
+                <li>打开终端，进入项目目录：<code>cd e:\files\tutorial\game-hub</code></li>
+                <li>安装依赖：<code>npm install</code></li>
+                <li>启动开发服务器：<code>npm run dev</code></li>
+                <li>在浏览器中访问 <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+            </ol>
+            <p>当前已实现功能：Vue项目结构、护眼清新绿主题、2048游戏、路由导航、用户注册系统</p>
+        </div>
+    </div>
+
+    <script>
+        // 显示注册弹窗
+        function showRegisterModal() {
+            const modal = document.getElementById('registerModal');
+            modal.style.display = 'flex';
+        }
+
+        // 隐藏注册弹窗
+        function hideRegisterModal() {
+            const modal = document.getElementById('registerModal');
+            modal.style.display = 'none';
+        }
+
+        // 处理注册表单提交
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const nickname = document.getElementById('nickname').value;
+            
+            // 简单的表单验证
+            if (password !== confirmPassword) {
+                alert('密码不一致，请重新输入');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('密码长度至少6位');
+                return;
+            }
+            
+            // 模拟注册成功
+            alert('注册成功！欢迎加入清悦休闲');
+            hideRegisterModal();
+            
+            // 清空表单
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('confirmPassword').value = '';
+            document.getElementById('nickname').value = '';
+        }
+
+        // 点击弹窗外部关闭弹窗
+        document.getElementById('registerModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                hideRegisterModal();
+            }
+        });
+
+        // 按ESC键关闭弹窗
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                hideRegisterModal();
+            }
+        });
+    </script>
+</body>
+</html>
