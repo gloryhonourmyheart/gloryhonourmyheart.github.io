@@ -1,7 +1,7 @@
 @echo off
 chcp 65001 >nul
 echo Starting Game Hub...
-cd /d "e:\files\tutorial\game-hub"
+cd /d "e:\files\gameshows\filesgameshows\game-hub"
 
 :: Check if Node.js is installed
 node --version >nul 2>&1
@@ -28,4 +28,3 @@ echo Starting development server...
 echo After server starts, open browser and visit: http://localhost:3000
 echo.
 npm run dev
-pause
